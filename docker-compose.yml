@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: dockerfile
-    restart: unless-stopped
-    ports:
+      restart: unless-stopped
+      port: 
       - "5174:5173"
+      
