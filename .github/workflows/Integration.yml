@@ -30,7 +30,7 @@ jobs:
       - name: Build app
         run: npm run build
 
-#Job to create docker image
+  #Job to create docker image
   docker:
     needs: build
     runs-on: ubuntu-latest
@@ -43,6 +43,23 @@ jobs:
         run: docker build -f dockerfile -t ${{ secrets.DOCKER_USERNAME }}/react-app-github-action:latest  .
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/react-app-github-action:latest
+
+  # job to push code on ec2
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull ayushad/react-app-github-action:latest
+            docker stop my-app || true
+            docker rm my-app || true
+            docker run -d --name my-app -p 80:80 ayushad/react-app-github-action:latest
 
 # new command added and always provide read and write permission
 # on:
