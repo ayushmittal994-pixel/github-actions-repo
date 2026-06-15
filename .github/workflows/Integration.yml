@@ -44,6 +44,7 @@ jobs:
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/react-app-github-action:latest
 
+# new command added
 # on:
 #   push:
 #     branches: [main]
