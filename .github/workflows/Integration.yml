@@ -43,6 +43,8 @@ jobs:
         run: docker build -f dockerfile -t ${{ secrets.DOCKER_USERNAME }}/react-app-github-action:latest  .
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/react-app-github-action:latest
+# new command added and always provide read and write permission
+
 
   # job to push code on ec2
   deploy:
@@ -61,7 +63,7 @@ jobs:
             docker rm my-app || true
             docker run -d --name my-app -p 80:80 ayushad/react-app-github-action:latest
 
-# new command added and always provide read and write permission
+
 # on:
 #   push:
 #     branches: [main]
