@@ -1,4 +1,4 @@
-# Runs on every push to main, and on pull requests to main
+
 name: Integration
 
 # Runs on every push to main, and on pull requests to main
