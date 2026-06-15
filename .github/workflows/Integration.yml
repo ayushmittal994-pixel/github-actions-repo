@@ -44,7 +44,7 @@ jobs:
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/react-app-github-action:latest
 
-# new command added
+# new command added and always provide read and write permission
 # on:
 #   push:
 #     branches: [main]
